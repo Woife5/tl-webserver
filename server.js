@@ -6,42 +6,24 @@ const mongoose = require('mongoose');
 const { VIRTUAL_PORT = 3000, MONGODB_URI } = process.env;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const Player = require('./Player');
+const Player = require('./models/Player');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/api/highscores', async (req, res) => {
-    const highscores = await Player.find({}).sort({ score: -1 }).limit(20);
+// Speedrun API router
+// const speedrunApi = require('./routes/api/speedrun');
+// app.use('/api/speedrun', speedrunApi);
 
-    res.json(highscores.map(player => player.getData()));
-});
+// Coop API router
+// const coopApi = require('./routes/api/coop');
+// app.use('/api/coop', coopApi);
 
-app.post('/api/save', async (req, res) => {
-    const { steamId, username, score } = req.body;
+// Save API router
+const saveApi = require('./routes/api/save');
+app.use('/api/save', saveApi);
 
-    try {
-        const player = await Player.findOne({ steamId: steamId }).exec();
-
-        if (player) {
-            player.updateScore(score);
-            player.setUsername(username);
-            const result = await player.save();
-            res.json({ success: true, result: result.getData() });
-        } else {
-            const newPlayer = new Player();
-            newPlayer.setSteamId(steamId);
-            newPlayer.setUsername(username);
-            newPlayer.setScore(score);
-
-            const r = await newPlayer.save();
-            res.json({ success: true, result: r });
-        }
-    } catch (err) {
-        res.status(500).json({ success: false, error: err });
-    }
-});
-
+/** -------------------- Handle all other requests with 404, not found -------------------- */
 app.use('*', (req, res) => {
     res.status(404).json({ message: 'Not Found' });
 });

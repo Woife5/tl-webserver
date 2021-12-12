@@ -8,6 +8,8 @@
 
 `kills+` bedeutet, dass die Anzahl der Kills zur aktuellen Anzahl hinzugefügt wird (oder gesetzt wird falls noch leer). `maxWave` wird überschrieben und nicht addiret. `gamesPlayed` braucht nicht extra mitgeschickt werden, es wird standardmäßig `+1` angenommen.
 
+Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser noch nicht existiert. Standardmäßig wird `username` auf 'No Name' gesetzt und `gameCompleted` auf `false`.
+
 ## Server routes
 
 | Request | Route                  | Body                                                                                      | Result                               |
