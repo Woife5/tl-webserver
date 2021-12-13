@@ -131,6 +131,18 @@ playerSchema.methods.getData = function () {
     };
 };
 
+playerSchema.methods.getCoopData = function () {
+    return {
+        steamId: this.steamId,
+        username: this.username,
+        kills: this.coop.kills,
+        headshots: this.coop.headshots,
+        maxWave: this.coop.maxWave,
+        score: this.coop.score,
+        gamesPlayed: this.coop.gamesPlayed,
+    };
+};
+
 playerSchema.statics.getSpeedrunLevels = function () {
     return SPEEDRUN_LEVELS;
 };

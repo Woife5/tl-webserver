@@ -16,8 +16,8 @@ const speedrunApi = require('./routes/api/speedrun');
 app.use('/api/speedrun', speedrunApi);
 
 // Coop API router
-// const coopApi = require('./routes/api/coop');
-// app.use('/api/coop', coopApi);
+const coopApi = require('./routes/api/coop');
+app.use('/api/coop', coopApi);
 
 // Save API router
 const saveApi = require('./routes/api/save');

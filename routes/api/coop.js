@@ -6,26 +6,38 @@ const Player = require('../../models/Player');
 
 // LOCATION: /api/coop
 
-router.get('/', async (req, res) => {});
-
-router.get('/:steamId', async (req, res) => {
+router.get('/stats/global', async (req, res) => {
     try {
+        const players = await Player.find({});
+        const coopStats = players.map(player => player.getCoopData());
+        res.json({ success: true, data: coopStats });
     } catch (err) {
+        let obj = { success: false, error: err.message };
+
         if (err instanceof DatabaseModelError) {
-            res.status(400).json(err);
+            res.status(400).json(obj);
         } else {
-            res.status(500).json(err);
+            res.status(500).json(obj);
         }
     }
 });
 
-router.get('/stage/:stage', async (req, res) => {
+router.get('/stats/player/:steamId', async (req, res) => {
+    const steamId = req.params.steamId;
     try {
-    } catch (err) {
-        if (err instanceof DatabaseModelError) {
-            res.status(400).json(err);
+        const player = await Player.findOne({ steamId });
+        if (!player) {
+            playerNotFound(res);
         } else {
-            res.status(500).json(err);
+            res.json({ success: true, data: player.getCoopData() });
+        }
+    } catch (err) {
+        let obj = { success: false, error: err.message };
+
+        if (err instanceof DatabaseModelError) {
+            res.status(400).json(obj);
+        } else {
+            res.status(500).json(obj);
         }
     }
 });
