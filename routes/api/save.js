@@ -63,10 +63,14 @@ router.post('/speedrun', async (req, res) => {
 
         if (username) player.setUsername(username);
 
-        player.setSpeedrun(level, time);
+        const newBest = player.setSpeedrun(level, time);
 
-        const data = await player.save();
-        res.json({ success: true, data: data });
+        if (newBest) {
+            await player.save();
+        }
+        const data = player.getData();
+
+        res.json({ success: true, data: data, newBest: newBest });
     } catch (err) {
         let obj = { success: false, error: err.message };
 

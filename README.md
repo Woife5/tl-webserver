@@ -12,22 +12,21 @@ Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser 
 
 ## Server routes
 
-| Request | Route                  | Body                                                                                      | Result                               |
-| ------- | ---------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------ |
-| POST    | /api/save              | `{steamId: String, username?: String, storyCompleted?: boolean}`                          | `{success: boolean, data: Player}`   |
-| POST    | /api/save/speedrun     | `{steamId: String, username?: String, level: Level, time: Number}`                        | `{success: boolean, data: Player}`   |
-| POST    | /api/save/coop         | `{steamId: String, username?: String, kills+, headshots+, maxWave, score+, gamesPlayed?}` | `{success: boolean, data: Player}`   |
-| GET     | /api/save/:steamId     | -                                                                                         | `{success: boolean, data: Player}`   |
-| GET     | /api/speedrun          | -                                                                                         | `{success: boolean, data: [Player]}` |
-| GET     | /api/speedrun/:steamId | -                                                                                         | `{success: boolean, data: Player}`   |
-| GET     | /api/coop              | -                                                                                         | `{success: boolean, data: [Player]}` |
-| GET     | /api/coop/:steamId     | -                                                                                         | `{success: boolean, data: Player}`   |
+| Request | Route                  | Body                                                                                      | Result                                               |
+| ------- | ---------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| POST    | /api/save              | `{steamId: String, username?: String, storyCompleted?: boolean}`                          | `{success: boolean, data: Player}`                   |
+| POST    | /api/save/speedrun     | `{steamId: String, username?: String, level: Level, time: Number}`                        | `{success: boolean, data: Player, newBest: boolean}` |
+| POST    | /api/save/coop         | `{steamId: String, username?: String, kills+, headshots+, maxWave, score+, gamesPlayed?}` | `{success: boolean, data: Player}`                   |
+| GET     | /api/save/:steamId     | -                                                                                         | `{success: boolean, data: Player}`                   |
+| GET     | /api/speedrun          | -                                                                                         | `{success: boolean, data: [Player]}`                 |
+| GET     | /api/speedrun/:steamId | -                                                                                         | `{success: boolean, data: Player}`                   |
+| GET     | /api/coop              | -                                                                                         | `{success: boolean, data: [Player]}`                 |
+| GET     | /api/coop/:steamId     | -                                                                                         | `{success: boolean, data: Player}`                   |
 
 ## Enums
 
-| Name     | Value                                                                                              |
-| -------- | -------------------------------------------------------------------------------------------------- |
-| Player   | `{steamId: String, username: String, storyCompleted: boolean, speedruns: [Speedrun], coop: Coop }` |
-| Speedrun | `{level: Level time: String}`                                                                      |
-| Level    | `TheCrossing` \| `Surrounded` \| `NewAcquaintance` \| `Prisoned` \|`DarkForest`                    |
-| Coop     | `{kills, headshots, maxWave, score, gamesPlayed}` all `Number`                                     |
+| Name      | Value                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------- |
+| Player    | `{steamId: String, username: String, storyCompleted: boolean, speedruns: Speedruns, coop: Coop }` |
+| Speedruns | `{TheCrossing, Surrounded, NewAcquaintance, Prisoned, DarkForest}` all `Number`, default: `0`     |
+| Coop      | `{kills, headshots, maxWave, score, gamesPlayed}` all `Number`, default: `0`                      |

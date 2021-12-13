@@ -16,19 +16,28 @@ const playerSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    speedruns: [
-        {
-            level: {
-                type: String,
-                enum: SPEEDRUN_LEVELS,
-                required: true,
-            },
-            time: {
-                type: Number,
-                default: -1,
-            },
+    speedruns: {
+        TheCrossing: {
+            type: Number,
+            default: 0,
         },
-    ],
+        Surrounded: {
+            type: Number,
+            default: 0,
+        },
+        NewAcquaintance: {
+            type: Number,
+            default: 0,
+        },
+        Prisoned: {
+            type: Number,
+            default: 0,
+        },
+        DarkForest: {
+            type: Number,
+            default: 0,
+        },
+    },
     coop: {
         kills: {
             type: Number,
@@ -94,9 +103,11 @@ playerSchema.methods.updateCoopData = function (kills, headshots, maxWave, score
 
 playerSchema.methods.setSpeedrun = function (level, time) {
     if (SPEEDRUN_LEVELS.includes(level)) {
-        if (!this.speedruns[level] || this.speedruns[level].time > time) {
+        if (this.speedruns[level] === 0 || this.speedruns[level] > time) {
             this.speedruns[level] = time;
+            return true;
         }
+        return false;
     } else {
         throw new DatabaseModelError('Invalid speedrun level name');
     }
