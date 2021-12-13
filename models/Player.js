@@ -131,6 +131,10 @@ playerSchema.methods.getData = function () {
     };
 };
 
+playerSchema.statics.getSpeedrunLevels = function () {
+    return SPEEDRUN_LEVELS;
+};
+
 const playerModel = mongoose.model('Player', playerSchema);
 
 module.exports = playerModel;

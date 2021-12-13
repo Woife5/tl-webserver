@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Speedrun API router
-// const speedrunApi = require('./routes/api/speedrun');
-// app.use('/api/speedrun', speedrunApi);
+const speedrunApi = require('./routes/api/speedrun');
+app.use('/api/speedrun', speedrunApi);
 
 // Coop API router
 // const coopApi = require('./routes/api/coop');
