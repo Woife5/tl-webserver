@@ -93,7 +93,7 @@ router.post('/coop', async (req, res) => {
 
         if (username) player.setUsername(username);
 
-        player.updateCoopStats(kills, headshots, maxWave, score, gamesPlayed);
+        player.updateCoopData(kills, headshots, maxWave, score, gamesPlayed);
 
         const data = await player.save();
         res.json({ success: true, data: data });
