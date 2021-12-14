@@ -7,7 +7,7 @@ const Player = require('../../models/Player');
 // LOCATION: /api/save
 
 router.get('/:steamId', async (req, res) => {
-    const { steamId } = req.body;
+    const steamId = req.params.steamId;
 
     try {
         const player = await Player.findOne({ steamId: steamId });
