@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const DatabaseModelError = require('./DatabaseModelError');
 
 const SPEEDRUN_LEVELS = ['TheCrossing', 'Surrounded', 'NewAcquaintance', 'Prisoned', 'DarkForest'];
+const COOP_STAT_FIELDS = ['kills', 'headshots', 'maxWave', 'score', 'gamesPlayed'];
 
 const playerSchema = new mongoose.Schema({
     steamId: {
@@ -145,6 +146,10 @@ playerSchema.methods.getCoopData = function () {
 
 playerSchema.statics.getSpeedrunLevels = function () {
     return SPEEDRUN_LEVELS;
+};
+
+playerSchema.statics.getCoopStatFields = function () {
+    return COOP_STAT_FIELDS;
 };
 
 const playerModel = mongoose.model('Player', playerSchema);
