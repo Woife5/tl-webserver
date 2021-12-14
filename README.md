@@ -34,3 +34,32 @@ Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser 
 | `SRPlayerData`      | `{steamId: String, username: String, TheCrossing, Surrounded, NewAcquaintance, Prisoned, DarkForest}` all `SRPlayerLevelData` |
 | `SRPlayerLevelData` | `{time: Number, rank: Number}` values will be `0` if no speedrun was completed                                                |
 | `CoopData`          | `{steamId: String, username: String, kills, headshots, maxWave, score, gamesPlayed}` all `Number`                             |
+
+## Beschreibung
+
+### /api/save
+
+Zum Eintragen/Ändern eines Spielernamens und/oder ändern des `storyCompleted`-Flags. Beispiele:
+
+    `POST /api/save {steamId: 'STEAM_0:1:1234567890', username: 'Woife'}`
+    `POST /api/save {steamId: 'STEAM_0:1:1234567891', username: 'Thomas', storyCompleted: true}`
+    `POST /api/save {steamId: 'STEAM_0:1:1234567892', storyCompleted: true}`
+
+### /api/save/speedrun
+
+Zum Eintragen/Ändern eines Speedruns. `username` ist Optional, wenn einer mitgeschickt wird, wird dieser in der Datenbank aktualisiert. `level` muss ein gültiger Levelname sein (siehe Enums/Speedruns). `time` ist die benötigte Zeit in Sekunden. Ist die benötigte Zeit länger als der letzte Versuch, dann wird der neue Wert nicht abgespeichert. Der Boolsche Wert `newBest` in der Antwort wird dann `false` sein, wenn aber der geschickte Wert eingetragen wurde wird dieser `true`. Beispiele:
+
+    `POST /api/save/speedrun {steamId: 'STEAM_0:1:1234567890', username: 'Woife', level: 'TheCrossing', time: 12345}`
+    `POST /api/save/speedrun {steamId: 'STEAM_0:1:1234567891', username: 'Thomas', level: 'Surrounded', time: 67890}`
+    `POST /api/save/speedrun {steamId: 'STEAM_0:1:1234567892', level: 'NewAcquaintance', time: 12345}`
+    `POST /api/save/speedrun {steamId: 'STEAM_0:1:1234567893', level: 'Prisoned', time: 67890}`
+    `POST /api/save/speedrun {steamId: 'STEAM_0:1:1234567894', level: 'DarkForest', time: 12345}`
+
+### /api/save/coop
+
+Zum Eintragen/Erhöhen der Coop-Stats. `username` ist Optional, wenn einer mitgeschickt wird, wird dieser in der Datenbank aktualisiert. `gamesPlayed` kann (und sollte) weggelassen werden, dann wird `+1` eingetragen. Alternativ kann ein Wert mitgesendet werden, dann wird dieser Wert dazuaddiert. `maxWave` ist der einzige Wert, der nicht aufsummiert wird sondern überschrieben wenn dieser größer als der bereits eingetragene Wert ist. Beispiele:
+
+    `POST /api/save/coop {steamId: 'STEAM_0:1:1234567890', username: 'Woife', kills: 10, headshots: 5, maxWave: 3, score: 100}`
+    `POST /api/save/coop {steamId: 'STEAM_0:1:1234567891', username: 'Thomas', kills: 10, headshots: 5, maxWave: 3, score: 100, gamesPlayed: 1}`
+    `POST /api/save/coop {steamId: 'STEAM_0:1:1234567892', kills: 10, headshots: 5, maxWave: 3, score: 100}`
+    `POST /api/save/coop {steamId: 'STEAM_0:1:1234567893', kills: 20, headshots: 2, maxWave: 5, score: 700}`
