@@ -83,7 +83,7 @@ router.post('/speedrun', async (req, res) => {
 });
 
 router.post('/coop', async (req, res) => {
-    const { steamId, username, kills, headshots, maxWave, score, gamesPlayed = 1 } = req.body;
+    const { steamId, username, kills, headshots, maxWave, score, gamesPlayed = 0 } = req.body;
 
     try {
         let player = await Player.findOne({ steamId: steamId });
