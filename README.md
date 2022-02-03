@@ -28,7 +28,8 @@ Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser 
 
 | Name                | Value                                                                                                                         |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `Player`            | `{steamId: String, username: String, storyCompleted: boolean, speedruns: Speedruns, coop: Coop }`                             |
+| `Player`            | `{steamId: String, username: String, storyCompleted: boolean, speedruns: Speedruns, coop: Coop, skins: [Skin] }`              |
+| `Skin`              | `gold \| platinum`                                                                                                            |
 | `Speedruns`         | `{TheCrossing, Surrounded, NewAcquaintance, Prisoned, DarkForest}` all `Number`, default: `0`                                 |
 | `Coop`              | `{kills, headshots, maxWave, score, gamesPlayed}` all `Number`, default: `0`                                                  |
 | `SRLevelData`       | `{steamId: String, username: String, time: Number}`                                                                           |

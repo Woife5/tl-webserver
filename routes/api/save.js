@@ -15,7 +15,7 @@ router.get('/:steamId', async (req, res) => {
             playerNotFound(res);
             return;
         }
-        res.json({ success: true, data: player });
+        res.json({ success: true, data: player.getData() });
     } catch (err) {
         let obj = { success: false, error: err.message };
 
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
         if (storyCompleted !== undefined) player.setStoryCompleted(storyCompleted);
 
         const data = await player.save();
-        res.json({ success: true, data: data });
+        res.json({ success: true, data: data.getData() });
     } catch (err) {
         let obj = { success: false, error: err.message };
 
@@ -96,7 +96,7 @@ router.post('/coop', async (req, res) => {
         player.updateCoopData(kills, headshots, maxWave, score, gamesPlayed);
 
         const data = await player.save();
-        res.json({ success: true, data: data });
+        res.json({ success: true, data: data.getData() });
     } catch (err) {
         let obj = { success: false, error: err.message };
 
