@@ -3,16 +3,19 @@ const DatabaseModelError = require('./DatabaseModelError');
 
 const SPEEDRUN_LEVELS = ['TheCrossing', 'Surrounded', 'NewAcquaintance', 'Prisoned', 'DarkForest'];
 const COOP_STAT_FIELDS = ['kills', 'headshots', 'maxWave', 'score', 'gamesPlayed'];
-const SKINS = ['gold', 'platinum'];
+const SKINS = ['gold', 'color'];
 
 const playerSchema = new mongoose.Schema({
     steamId: {
         type: String,
         required: true,
+        trim: true,
+        unique: true,
     },
     username: {
         type: String,
         required: true,
+        trim: true,
     },
     storyCompleted: {
         type: Boolean,
