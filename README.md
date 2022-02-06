@@ -24,12 +24,20 @@ Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser 
 | GET     | /api/coop/stats/global/sort/:orderBy | -                                                                                         | `{success: boolean, data: [CoopData]}` in DESC order (on provided field) |
 | GET     | /api/coop/stats/player/:steamId      | -                                                                                         | `{success: boolean, data: CoopData}`                                     |
 
+## Temp routes
+
+These will be removed at some point in the future.
+
+| Request | Route     | Body                              | Result                             |
+| ------- | --------- | --------------------------------- | ---------------------------------- |
+| POST    | /api/skin | `{steamId: String, skin: String}` | `{success: boolean, data: Player}` |
+
 ## Enums
 
 | Name                | Value                                                                                                                         |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `Player`            | `{steamId: String, username: String, storyCompleted: boolean, speedruns: Speedruns, coop: Coop, skins: [Skin] }`              |
-| `Skin`              | `gold \| platinum`                                                                                                            |
+| `Skin`              | `gold \| color`                                                                                                               |
 | `Speedruns`         | `{TheCrossing, Surrounded, NewAcquaintance, Prisoned, DarkForest}` all `Number`, default: `0`                                 |
 | `Coop`              | `{kills, headshots, maxWave, score, gamesPlayed}` all `Number`, default: `0`                                                  |
 | `SRLevelData`       | `{steamId: String, username: String, time: Number}`                                                                           |
