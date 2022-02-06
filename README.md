@@ -28,9 +28,9 @@ Alle `/api/save` Methoden legen den Player neu an in der Datenbank falls dieser 
 
 These will be removed at some point in the future.
 
-| Request | Route     | Body                              | Result                             |
-| ------- | --------- | --------------------------------- | ---------------------------------- |
-| POST    | /api/skin | `{steamId: String, skin: String}` | `{success: boolean, data: Player}` |
+| Request | Route          | Body                              | Result                             |
+| ------- | -------------- | --------------------------------- | ---------------------------------- |
+| POST    | /api/save/skin | `{steamId: String, skin: String}` | `{success: boolean, data: Player}` |
 
 ## Enums
 
