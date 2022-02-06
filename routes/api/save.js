@@ -52,6 +52,32 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Temporary solution for adding a skin to a player
+// Will be removed when the final game releases
+router.post('/skin', async (req, res) => {
+    const { steamId, skin } = req.body;
+
+    try {
+        let player = await Player.findOne({ steamId: steamId });
+        if (!player) {
+            player = createPlayer(steamId);
+        }
+
+        player.setSkin(skin);
+
+        const data = await player.save();
+        res.json({ success: true, data: data.getData() });
+    } catch (err) {
+        let obj = { success: false, error: err.message };
+
+        if (err instanceof DatabaseModelError) {
+            res.status(400).json(obj);
+        } else {
+            res.status(500).json(obj);
+        }
+    }
+});
+
 router.post('/speedrun', async (req, res) => {
     const { steamId, username, level, time } = req.body;
 

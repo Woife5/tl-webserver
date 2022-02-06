@@ -123,6 +123,18 @@ playerSchema.methods.setSpeedrun = function (level, time) {
     }
 };
 
+playerSchema.methods.setSkin = function (skin) {
+    if (SKINS.includes(skin)) {
+        if (!this.skins.includes(skin)) {
+            this.skins.push(skin);
+            return true;
+        }
+        return false;
+    } else {
+        throw new DatabaseModelError('Invalid skin name');
+    }
+};
+
 playerSchema.methods.setStoryCompleted = function (completed) {
     if (typeof completed === 'boolean') {
         this.storyCompleted = completed;
