@@ -8,7 +8,9 @@ const Player = require('../../models/Player');
 
 router.get('/stats/global', async (req, res) => {
     try {
-        const players = await Player.find({}).sort({ 'coop.maxWave': -1 }).exec();
+        const players = await Player.find({ 'coop.score': { $gt: 0 } })
+            .sort({ 'coop.maxWave': -1 })
+            .exec();
         const coopStats = players.map(player => player.getCoopData());
         res.json({ success: true, data: coopStats });
     } catch (err) {
@@ -31,7 +33,9 @@ router.get('/stats/global/sort/:orderBy', async (req, res) => {
 
     const orderString = `{ "coop.${orderBy}": -1 }`;
     try {
-        const players = await Player.find({}).sort(JSON.parse(orderString)).exec();
+        const players = await Player.find({ 'coop.score': { $gt: 0 } })
+            .sort(JSON.parse(orderString))
+            .exec();
         const coopStats = players.map(player => player.getCoopData());
         res.json({ success: true, data: coopStats });
     } catch (err) {
