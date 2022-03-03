@@ -75,7 +75,6 @@ const playerSchema = new mongoose.Schema({
 playerSchema.methods.setSteamId = function (steamId) {
     if (steamId && steamId.trim().length > 0) {
         this.steamId = steamId;
-    } else {
     }
 };
 
@@ -84,21 +83,18 @@ playerSchema.methods.setUsername = function (username) {
         if (!this.username || this.username !== username) {
             this.username = username;
         }
-    } else {
     }
 };
 
 playerSchema.methods.updateScore = function (score) {
     if (score > 0) {
         this.score += score;
-    } else {
     }
 };
 
 playerSchema.methods.setScore = function (score) {
     if (score > 0) {
         this.score = score;
-    } else {
     }
 };
 

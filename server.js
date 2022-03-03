@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const { VIRTUAL_PORT = 3000, MONGODB_URI } = process.env;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const Player = require('./models/Player');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
